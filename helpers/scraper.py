@@ -98,13 +98,11 @@ class Scraper:
             use_subprocess = True
         )
 
-        self.sleep(3, 4) # Wait for the browser to open properly
-        self.go_to_page(self.url)
-
     def print_executable_path(self):
         print('chrome browser path: ', self.browser_executable_path)
         print('chromedriver path:   ', self.driver_executable_path)
         print('headless:    ', self.headless)
+        print('')
         
     # Add login functionality and load cookies if there are any with 'cookies_file_name'
     def add_login_functionality(self, is_logged_in_selector, loop_count=10, login_function=None, exit_on_login_failure=True, cookies_file_name='cookies'):
@@ -309,7 +307,8 @@ class Scraper:
             except ElementClickInterceptedException:
                 self.element_click_by_javaScript(element=element)
             except Exception as e:
-                self.exit_with_exception(reason=f'Error: Can not click {element} with selector {css_selector or xpath}\n{e}')
+                if exit_on_missing_element:
+                    self.exit_with_exception(reason=f'Error: Can not click element with selector {css_selector or xpath}\n{e}')
         elif exit_on_missing_element:
             self.exit_with_exception(f'No element to click with selector {css_selector or xpath}')
         

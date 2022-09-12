@@ -75,11 +75,11 @@ def write_to_txt(data, lable=False, file_name='output.txt'):
     except Exception as e:
         exit_or_continue(reason=f'{file_name} not found in {file_dir}\n{e}')
 
-def read_csv(file_name, list_of_dictionaries = False, exit_on_empty=True):
+def read_csv(file_name, list_of_dictionaries = False, header=None, exit_on_empty=True):
     file_dir = os.getcwd() + "/" + file_name
     data = []
     try:
-        df = pd.read_csv(file_dir)
+        df = pd.read_csv(file_dir, header=header)
         if list_of_dictionaries:
             data = df.to_dict('records')
         else:

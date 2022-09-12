@@ -1,6 +1,10 @@
 # My files
 cookies/
 inputs/
+*.exe
+*.zip
+visited.csv
+logo.jpg
 
 Instruction.txt
 t.py
